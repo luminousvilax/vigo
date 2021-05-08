@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'searcher/detail.css' %}">
+    <meta charset="UTF-8">
+    <title>{{ doc.title }}</title>
+</head>
+<body>
+    <div id="header">
+        <h1>{{ doc.title }}</h1>
+        <p>{{ doc.datetime|date:"Y-m-d H:i:s T" }}</p>
+        <p><span>原文链接:</span>&nbsp;<a id="source" href="{{ doc.url }}" target="_blank">{{ doc.url }}</a></p>
+    </div>
+    <hr/>
+    <div id="body" class="column middle">
+        <table class="column middle">
+            <tr>
+                <td>
+                    {% for paragraph in contents %}
+                        <p id="para">{{ paragraph }}</p>
+                    {% endfor %}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="sidebar" class="column side">
+        {% if similar_news %}
+        <h2>延伸阅读</h2>
+        <ul>
+            {% for sim in similar_news %}
+                <li><a href="{% url 'searcher:details' sim.pk %}">{{ sim.title }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</body>
+</html>

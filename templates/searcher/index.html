@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'searcher/index.css' %}">
+    <meta charset="UTF-8">
+    <title class="center">Vigo</title>
+</head>
+<body>
+    <div id="container">
+        <div id="header" class="center">
+            <h1>Vigo</h1>
+            <form name="search" action="{% url 'searcher:results' %}" method="post">
+            {% csrf_token %}
+                <p>
+                    <label>
+                        <input type="text" name="keyword" autofocus>
+                    </label>
+                    <input type="submit" value="Search">
+                </p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

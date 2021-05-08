@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'searcher/results.css' %}">
+    <meta charset="UTF-8">
+    <title>{{ keyword|add:" 的搜索结果" }}</title>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <form name="search" action="{% url 'searcher:results' %}" method="post">
+            {% csrf_token %}
+            <p>
+                <input type="text" name="keyword" value="{{ keyword }}">
+                <input type="submit" value="Search"><br>
+                <label id="sort">排序依据: </label>
+                {% if sort == 'related' %}
+                    <input type="radio" name="order" value="related" checked><label>相关度</label>&nbsp;
+                {% else %}
+                    <input type="radio" name="order" value="related"><label>相关度</label>&nbsp;
+                {% endif %}
+
+                {% if sort == 'hot' %}
+                    <input type="radio" name="order" value="hot" checked><label>热度</label>&nbsp;
+                {% else %}
+                    <input type="radio" name="order" value="hot"><label>热度</label>&nbsp;
+                {% endif %}
+
+                {% if sort == 'time' %}
+                    <input type="radio" name="order" value="time" checked><label>时间</label>
+                {% else %}
+                    <input type="radio" name="order" value="time"><label>时间</label>
+                {% endif %}
+                <br><p id="solution">找到{{ counts }}条结果 (用时{{ use_time }}秒)</p>
+            </p>
+        </form>
+    </div>
+    <div id="toolbar">
+    </div>
+    <div id="result_list">
+        {% if result %}
+            <p>
+                {% for res in result %}
+                    <a id="title" href={% url 'searcher:details' res.pk %}>{{ res.title }}</a>
+                    <p id="para">
+                        {{ res.body|truncatechars_html:150 }}<br/>
+                        <a id="source" href="{{ res.url }}" target="_blank">{{ res.url }}</a>
+                    </p>
+                {% endfor %}
+            </p>
+        {% else %}
+            <p>对不起，没有找到与您搜索的相关网页.</p>
+        {% endif %}
+    </div>
+    <div id="next">
+        {% block next %}
+            {% if pages and result %}
+                <ul>
+                    {% if not pageorder.is_first %}
+                        <a href="{% url 'searcher:next_page' pageorder.pre_order %}">上一页</a>&nbsp;
+                    {% endif %}
+                    {% for order in pages %}
+                        <a href="{% url 'searcher:next_page' order %}">{{ order }}</a>&nbsp;
+                    {% endfor %}
+                    {% if not pageorder.is_max %}
+                        <a href="{% url 'searcher:next_page' pageorder.next_order %}">下一页</a>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        {% endblock %}
+    </div>
+</div>
+
+</body>
+</html>

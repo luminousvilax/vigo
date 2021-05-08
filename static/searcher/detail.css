@@ -1,0 +1,52 @@
+
+div {
+    margin-left: 50px;
+}
+
+div#body {
+    font-family: STXihei, "Microsoft YaHei", sans-serif;
+    font-size: 1.3em;
+}
+
+div#sidebar {
+    /*overflow: hidden;*/
+    /*position: absolute;*/
+    /*top: 200px;*/
+    /*right: 10px;*/
+    font-size: 1.2em;
+}
+
+.column {
+    flex-direction: row;
+    float: left;
+}
+
+table {
+    width: 1200px;
+    border: aliceblue;
+}
+
+td {
+    width: 1200px;
+}
+
+p#para {
+    text-indent: 30px;
+    margin: 0;
+}
+
+ul {
+    list-style-type: none;
+     background-color: #f1f1f1;
+}
+
+ul a:link, ul a:visited {
+    display: block;
+    color: #000;
+    padding-top: 10px;
+    text-decoration: none;
+}
+
+ul a:hover {
+    color: cornflowerblue;
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5;url={% url 'searcher:index' %}">
+    <style type="text/css">
+        p {
+            margin-top: 150px;
+            text-indent: 50px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+        a:link{
+            color: blue;
+            text-decoration: none;
+        }
+        a:visited{
+            color: blue;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <title>Error!</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            var i = 4;
+            var ti = document.getElementById("timers");
+            var timer = setInterval(function () {
+                if (i == -1) {
+                    clearInterval(timer);
+                } else {
+                    ti.innerHTML = i;
+                    --i;
+                }
+            }, 1000)
+        }
+    </script>
+</head>
+<body>
+    <p>
+        哎呀，出错啦！将在<span class="timeShow" id="timers">5</span>秒后返回首页～
+    </p>
+    <p>
+        <a href="{% url 'searcher:index' %}">立即返回</a>
+    </p>
+</body>
+</html>
